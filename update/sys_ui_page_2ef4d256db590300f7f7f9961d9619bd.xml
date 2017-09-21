@@ -2,30 +2,47 @@
 <record_update table="sys_ui_page">
     <sys_ui_page action="INSERT_OR_UPDATE">
         <category>general</category>
-        <client_script><![CDATA[var requestBody = ""; 
-
-var client=new XMLHttpRequest();
-client.open("get","https://ven02157.service-now.com/api/now/table/sys_user?sysparm_query=sys_id%3D"+g_form.getValue("caller_id")+"&sysparm_fields=phone%2C%20mobile_phone&sysparm_limit=1");
-
-client.setRequestHeader('Accept','application/json');
-client.setRequestHeader('Content-Type','application/json');
-client.setRequestHeader('X-UserToken',window.userToken);
-
-client.onreadystatechange = function() { 
-	if(this.readyState == this.DONE) {
-		var phones = JSON.parse(this.response).result[0];
-		if(phones.phone != ""){
-			document.getElementById("homephone").innerHTML=phones.phone;
-			document.getElementById("homenum").style.display="block";
-		}
-		if(phones.phone != ""){
-			document.getElementById("mobilephone").innerHTML=phones.mobile_phone;
-			document.getElementById("mobilenum").style.display="block";
-		}
+        <client_script><![CDATA[if(display_type == "user"){
+	if(g_form.getValue("phone") != ""){
+		document.getElementById("homephone").innerHTML=g_form.getValue("phone");
+		document.getElementById("homenum").style.display="block";
 	}
-}; 
-client.send(requestBody);
-]]></client_script>
+	if(g_form.getValue("mobile_phone") != ""){
+		document.getElementById("mobilephone").innerHTML=g_form.getValue("mobile_phone");
+		document.getElementById("mobilenum").style.display="block";
+	}
+	if(g_form.getValue("phone") == "" && g_form.getValue("mobile_phone") == ""){
+		document.getElementById("nophones").style.display="block";
+	}
+}else if(display_type == "incident"){
+	var requestBody = ""; 
+	var client=new XMLHttpRequest();
+	client.open("get","https://ven02157.service-now.com/api/now/table/sys_user?sysparm_query=sys_id%3D"+g_form.getValue("caller_id")+"&sysparm_fields=phone%2C%20mobile_phone&sysparm_limit=1");
+
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+	client.setRequestHeader('X-UserToken',window.userToken);
+
+	client.onreadystatechange = function() { 
+		if(this.readyState == this.DONE) {
+			var phones = JSON.parse(this.response).result[0];
+			if(phones.phone != ""){
+				document.getElementById("homephone").innerHTML=phones.phone;
+				document.getElementById("homenum").style.display="block";
+			}
+			if(phones.mobile_phone != ""){
+				document.getElementById("mobilephone").innerHTML=phones.mobile_phone;
+				document.getElementById("mobilenum").style.display="block";
+			}
+			if(phones.phone == "" && phones.mobile_phone == ""){
+				document.getElementById("nophones").style.display="block";
+			}
+		}
+	}; 
+	client.send(requestBody);
+}else{
+	document.getElementById("nophones").style.display="block";
+}]]></client_script>
         <description/>
         <direct>false</direct>
         <endpoint>x_vof_voicefoundry_contact_user.do</endpoint>
@@ -35,9 +52,21 @@ client.send(requestBody);
 		var session = gs.getSession();
 		var token = session.getSessionToken();
 	</g:evaluate>
-	<script>  
-		window.userToken = "$[token]";
+	<g:evaluate object="true">
+		var display_type = RP.getWindowProperties().display_type;
+	</g:evaluate>
+	<g:evaluate var="phone" expression="RP.getWindowProperties().get('phone')" />
+	<g:evaluate var="mobile_phone" expression="RP.getWindowProperties().get('moible_phone')" />
+	
+	<script>
+		var userToken = "$[token]";
+		var display_type = "$[display_type]";
+		var phone = "$[phone]";
+		var mobile_phone = "$[mobile_phone]";
 	</script>
+	<div id="nophones" style="display:none">
+		No phone numbers are currently found for this user.
+	</div>
 	<div id="homenum" style="display:none">
 		Home:<span id="homephone"></span>
 	</div>
@@ -52,7 +81,7 @@ client.send(requestBody);
         <sys_created_on>2017-09-21 16:10:23</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>2ef4d256db590300f7f7f9961d9619bd</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>40</sys_mod_count>
         <sys_name>contact_user</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
@@ -60,6 +89,6 @@ client.send(requestBody);
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_page_2ef4d256db590300f7f7f9961d9619bd</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-09-21 20:05:20</sys_updated_on>
+        <sys_updated_on>2017-09-21 22:36:19</sys_updated_on>
     </sys_ui_page>
 </record_update>

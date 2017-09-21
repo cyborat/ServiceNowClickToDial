@@ -24,7 +24,7 @@
         <script><![CDATA[function showUserContactUI() {
 	var gdw = new GlideDialogWindow('x_vof_voicefoundry_contact_user');
 		gdw.setTitle("Contact User");
-		gdw.setPreference("display_type", "incident");
+		gdw.setPreference("display_type", "user");
 		gdw.setSize('300,300');
 		gdw.render();
 }]]></script>
@@ -34,22 +34,22 @@
         <show_update>true</show_update>
         <sys_class_name>sys_ui_action</sys_class_name>
         <sys_created_by>mcasper</sys_created_by>
-        <sys_created_on>2017-09-21 14:59:06</sys_created_on>
+        <sys_created_on>2017-09-21 21:37:28</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>a9a30ad6db190300f7f7f9961d9619e0</sys_id>
-        <sys_mod_count>32</sys_mod_count>
+        <sys_id>46ded35adbd90300f7f7f9961d9619e2</sys_id>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>User Contact</sys_name>
         <sys_overrides/>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
-        <sys_update_name>sys_ui_action_a9a30ad6db190300f7f7f9961d9619e0</sys_update_name>
+        <sys_update_name>sys_ui_action_46ded35adbd90300f7f7f9961d9619e2</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-09-21 22:29:54</sys_updated_on>
-        <table>incident</table>
+        <sys_updated_on>2017-09-21 22:29:45</sys_updated_on>
+        <table>sys_user</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>true</ui16_compatible>
     </sys_ui_action>
