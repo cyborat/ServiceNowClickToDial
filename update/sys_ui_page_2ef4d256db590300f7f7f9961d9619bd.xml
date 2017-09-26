@@ -2,22 +2,27 @@
 <record_update table="sys_ui_page">
     <sys_ui_page action="INSERT_OR_UPDATE">
         <category>general</category>
-        <client_script><![CDATA[if(display_type == "user"){
-	if(g_form.getValue("phone") != ""){
-		document.getElementById("homephone").innerHTML=g_form.getValue("phone");
-		document.getElementById("homenum").style.display="block";
-	}
-	if(g_form.getValue("mobile_phone") != ""){
-		document.getElementById("mobilephone").innerHTML=g_form.getValue("mobile_phone");
-		document.getElementById("mobilenum").style.display="block";
-	}
-	if(g_form.getValue("phone") == "" && g_form.getValue("mobile_phone") == ""){
-		document.getElementById("nophones").style.display="block";
-	}
+        <client_script><![CDATA[var user;
+var latestOpenTicket;
+
+if(display_type == "user"){
+	loadUser("user_name", g_form.getValue("user_name"));
 }else if(display_type == "incident"){
+	loadUser("sys_id", g_form.getValue("caller_id"));
+}else{
+	document.getElementById("nophones").style.display="block";
+}
+
+function makeOutboundCall(phoneType){
+	var payload = {'user': user, 'phoneType': phoneType};
+	var context = {'payload': payload, 'method': "openframe_communication"};
+	CustomEvent.fireAll("openframe_request", context);
+}
+
+function loadUser(paramType, paramVal){
 	var requestBody = ""; 
 	var client=new XMLHttpRequest();
-	client.open("get","https://ven02157.service-now.com/api/now/table/sys_user?sysparm_query=sys_id%3D"+g_form.getValue("caller_id")+"&sysparm_fields=phone%2C%20mobile_phone&sysparm_limit=1");
+	client.open("get","https://ven02157.service-now.com/api/now/table/sys_user?sysparm_query="+paramType+"%3D"+paramVal+"&sysparm_limit=1");
 
 	client.setRequestHeader('Accept','application/json');
 	client.setRequestHeader('Content-Type','application/json');
@@ -25,23 +30,40 @@
 
 	client.onreadystatechange = function() { 
 		if(this.readyState == this.DONE) {
-			var phones = JSON.parse(this.response).result[0];
-			if(phones.phone != ""){
-				document.getElementById("homephone").innerHTML=phones.phone;
+			user = JSON.parse(this.response).result[0];
+			if(user.phone != ""){
+				document.getElementById("homephone").innerHTML=user.phone;
 				document.getElementById("homenum").style.display="block";
 			}
-			if(phones.mobile_phone != ""){
-				document.getElementById("mobilephone").innerHTML=phones.mobile_phone;
+			if(user.mobile_phone != ""){
+				document.getElementById("mobilephone").innerHTML=user.mobile_phone;
 				document.getElementById("mobilenum").style.display="block";
 			}
-			if(phones.phone == "" && phones.mobile_phone == ""){
+			if(user.phone == "" && user.mobile_phone == ""){
 				document.getElementById("nophones").style.display="block";
 			}
+			getLatestOpenTicket();
 		}
 	}; 
 	client.send(requestBody);
-}else{
-	document.getElementById("nophones").style.display="block";
+}
+
+function getLatestOpenTicket(){
+	var requestBody = ""; 
+
+	var client=new XMLHttpRequest();
+	client.open("get","https://ven02157.service-now.com/api/now/table/incident?sysparm_query=ORDERBYDESCsys_updated_on%5Estate!%3D6%5EORstate%3DNULL%5Estate!%3D7%5EORstate%3DNULL%5Esys_created_onONToday%40javascript%3Ags.daysAgoStart(0)%40javascript%3Ags.daysAgoEnd(0)&sysparm_display_value=&sysparm_limit=10&caller_id="+user.sys_id);
+
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+	client.setRequestHeader('X-UserToken',window.userToken);
+
+	client.onreadystatechange = function() { 
+		if(this.readyState == this.DONE) {
+			latestOpenTicket = JSON.parse(this.response).result[0];
+		}
+	}; 
+	client.send(requestBody);
 }]]></client_script>
         <description/>
         <direct>false</direct>
@@ -56,7 +78,7 @@
 		var display_type = RP.getWindowProperties().display_type;
 	</g:evaluate>
 	<g:evaluate var="phone" expression="RP.getWindowProperties().get('phone')" />
-	<g:evaluate var="mobile_phone" expression="RP.getWindowProperties().get('moible_phone')" />
+	<g:evaluate var="mobile_phone" expression="RP.getWindowProperties().get('mobile_phone')" />
 	
 	<script>
 		var userToken = "$[token]";
@@ -67,11 +89,11 @@
 	<div id="nophones" style="display:none">
 		No phone numbers are currently found for this user.
 	</div>
-	<div id="homenum" style="display:none">
-		Home:<span id="homephone"></span>
+	<div id="homenum" style="display:none; padding-left: 5px; color: #278efc; cursor: pointer; font-weight: bold;">
+		Home:<span id="homephone" onclick="makeOutboundCall('phone')" style="padding-left: 5px;"></span>
 	</div>
-	<div id="mobilenum" style="display:none">
-		Mobile:<span id="mobilephone"></span>
+	<div id="mobilenum" style="display:none; padding-left: 5px; color: #278efc; cursor: pointer; font-weight: bold;">
+		Mobile:<span id="mobilephone" onclick="makeOutboundCall('mobile_phone')" style="padding-left: 5px;"></span>
 	</div>
 </j:jelly>]]></html>
         <name>contact_user</name>
@@ -81,7 +103,7 @@
         <sys_created_on>2017-09-21 16:10:23</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>2ef4d256db590300f7f7f9961d9619bd</sys_id>
-        <sys_mod_count>40</sys_mod_count>
+        <sys_mod_count>66</sys_mod_count>
         <sys_name>contact_user</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
@@ -89,6 +111,6 @@
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_page_2ef4d256db590300f7f7f9961d9619bd</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-09-21 22:36:19</sys_updated_on>
+        <sys_updated_on>2017-09-26 17:44:50</sys_updated_on>
     </sys_ui_page>
 </record_update>

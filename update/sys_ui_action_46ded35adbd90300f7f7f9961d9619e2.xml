@@ -23,7 +23,7 @@
         <order>100</order>
         <script><![CDATA[function showUserContactUI() {
 	var gdw = new GlideDialogWindow('x_vof_voicefoundry_contact_user');
-		gdw.setTitle("Contact User");
+		gdw.setTitle("Contact User (Click To Dial)");
 		gdw.setPreference("display_type", "user");
 		gdw.setSize('300,300');
 		gdw.render();
@@ -39,7 +39,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>46ded35adbd90300f7f7f9961d9619e2</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>User Contact</sys_name>
         <sys_overrides/>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
@@ -48,7 +48,7 @@
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_action_46ded35adbd90300f7f7f9961d9619e2</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-09-21 22:29:45</sys_updated_on>
+        <sys_updated_on>2017-09-25 18:30:03</sys_updated_on>
         <table>sys_user</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>true</ui16_compatible>
