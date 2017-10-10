@@ -85,9 +85,7 @@ function getLatestTicketFromPastDay(){
 		}
 	}; 
 	client.send(requestBody);
-}
-
-]]></client_script>
+}]]></client_script>
         <description/>
         <direct>false</direct>
         <endpoint>x_vof_voicefoundry_contact_user.do</endpoint>
@@ -126,7 +124,7 @@ function getLatestTicketFromPastDay(){
         <sys_created_on>2017-09-21 16:10:23</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>2ef4d256db590300f7f7f9961d9619bd</sys_id>
-        <sys_mod_count>73</sys_mod_count>
+        <sys_mod_count>77</sys_mod_count>
         <sys_name>contact_user</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
@@ -134,6 +132,6 @@ function getLatestTicketFromPastDay(){
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_page_2ef4d256db590300f7f7f9961d9619bd</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-09-28 19:11:42</sys_updated_on>
+        <sys_updated_on>2017-10-09 22:59:17</sys_updated_on>
     </sys_ui_page>
 </record_update>

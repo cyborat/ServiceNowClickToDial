@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="apikey" label="APIKEY" language="en" table="x_vof_voicefoundry_voicefoundrycti">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>apikey</element>
+            <help/>
+            <hint/>
+            <label>APIKEY</label>
+            <language>en</language>
+            <name>x_vof_voicefoundry_voicefoundrycti</name>
+            <plural>APIKEYs</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>mcasper</sys_created_by>
+            <sys_created_on>2017-10-09 19:33:13</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_id>e1303788db3d4b00dcb7fd641d9619ba</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>APIKEY</sys_name>
+            <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
+            <sys_update_name>sys_documentation_x_vof_voicefoundry_voicefoundrycti_apikey_en</sys_update_name>
+            <sys_updated_by>mcasper</sys_updated_by>
+            <sys_updated_on>2017-10-09 19:33:13</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

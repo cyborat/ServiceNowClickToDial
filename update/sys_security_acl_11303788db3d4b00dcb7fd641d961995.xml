@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_security_acl">
+    <sys_security_acl action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <admin_overrides>true</admin_overrides>
+        <advanced>false</advanced>
+        <condition/>
+        <description>Default access control on x_vof_voicefoundry_voicefoundrycti</description>
+        <name>x_vof_voicefoundry_voicefoundrycti</name>
+        <operation display_value="read">read</operation>
+        <script/>
+        <sys_class_name>sys_security_acl</sys_class_name>
+        <sys_created_by>mcasper</sys_created_by>
+        <sys_created_on>2017-10-09 19:33:13</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>11303788db3d4b00dcb7fd641d961995</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_vof_voicefoundry_voicefoundrycti</sys_name>
+        <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
+        <sys_update_name>sys_security_acl_11303788db3d4b00dcb7fd641d961995</sys_update_name>
+        <sys_updated_by>mcasper</sys_updated_by>
+        <sys_updated_on>2017-10-09 19:33:13</sys_updated_on>
+        <type display_value="record">record</type>
+    </sys_security_acl>
+</record_update>

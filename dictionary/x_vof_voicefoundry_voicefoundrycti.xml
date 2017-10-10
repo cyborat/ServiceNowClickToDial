@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="VoiceFoundryCTI" max_length="40" name="x_vof_voicefoundry_voicefoundrycti" type="collection">
+        <element label="APIKEY" max_length="40" name="apikey" type="string"/>
+    </element>
+</database>

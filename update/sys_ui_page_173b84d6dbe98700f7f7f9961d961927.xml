@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function initServiceNowUserTokenProcess() {
+	debugger;
+	if (getUrlParameter("code") !== undefined){
+		debugger;
+		var authCode = getUrlParameter("code");
+		getServiceNowUserToken(authCode);
+	}else{
+		window.location = "https://ven02157.service-now.com/oauth_auth.do?response_type=code&redirect_uri="+ window.location.origin + window.location.pathname +"&client_id=5d472892e92d870088fc5d14255814ef&client_secret=|@lu-#Rijx";
+	}
+}
+
+getServiceNowUserToken = function (authToken) {
+	debugger;
+	
+	var requestBody = ""; 
+	var client=new XMLHttpRequest();
+	client.open("POST","https://ven02157.service-now.com/oauth_token.do?grant_type=authorization_token&code=" + authToken + "&redirect_uri="+ window.location.origin + window.location.pathname +"&client_id=5d472892e92d870088fc5d14255814ef&client_secret=|@lu-#Rijx");
+
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+
+	client.onreadystatechange = function() { 
+		if(this.readyState == this.DONE) {
+			debugger;
+			alert(JSON.parse(this.response).result[0]);
+		}
+	}; 
+	client.send(requestBody);
+};
+
+getUrlParameter = function(sParam) {
+	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		sURLVariables = sPageURL.split('&'),
+		sParameterName,
+		i;
+
+	for (i = 0; i < sURLVariables.length; i++) {
+		sParameterName = sURLVariables[i].split('=');
+
+		if (sParameterName[0] === sParam) {
+			return sParameterName[1] === undefined ? true : sParameterName[1];
+		}
+	}
+};
+
+function getTokenTest(){
+	alert("$[token]");
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_vof_voicefoundry_UserTokenUI.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<button onclick="initServiceNowUserTokenProcess()">get token</button>
+</j:jelly>]]></html>
+        <name>UserTokenUI</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>mcasper</sys_created_by>
+        <sys_created_on>2017-10-03 18:17:31</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>173b84d6dbe98700f7f7f9961d961927</sys_id>
+        <sys_mod_count>24</sys_mod_count>
+        <sys_name>UserTokenUI</sys_name>
+        <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
+        <sys_update_name>sys_ui_page_173b84d6dbe98700f7f7f9961d961927</sys_update_name>
+        <sys_updated_by>mcasper</sys_updated_by>
+        <sys_updated_on>2017-10-05 21:34:57</sys_updated_on>
+    </sys_ui_page>
+</record_update>

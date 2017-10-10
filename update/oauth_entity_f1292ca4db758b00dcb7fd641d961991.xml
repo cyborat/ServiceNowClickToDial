@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="oauth_entity">
+    <oauth_entity action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <access_token_lifespan>1800</access_token_lifespan>
+        <active>true</active>
+        <auth_code_lifespan>60</auth_code_lifespan>
+        <auth_url/>
+        <certificate_url/>
+        <client_id>e129682477758b00011c57e355f29e68</client_id>
+        <client_secret>c1qXtVsjkdhXZcpzSP52pw==</client_secret>
+        <client_uuid>a1296824db758b00dcb7fd641d961968</client_uuid>
+        <comments/>
+        <default_grant_type>password</default_grant_type>
+        <id_token_lifespan>86400</id_token_lifespan>
+        <logo_url/>
+        <message_signature_lifespan>60</message_signature_lifespan>
+        <name>VoiceFoundry CTI OAuth</name>
+        <oauth_api_script/>
+        <redirect_url/>
+        <refresh_token_lifespan>8640000</refresh_token_lifespan>
+        <revoke_token_url/>
+        <salt/>
+        <sys_class_name>oauth_entity</sys_class_name>
+        <sys_created_by>mcasper</sys_created_by>
+        <sys_created_on>2017-10-10 18:21:01</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>f1292ca4db758b00dcb7fd641d961991</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>VoiceFoundry CTI OAuth</sys_name>
+        <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
+        <sys_update_name>oauth_entity_f1292ca4db758b00dcb7fd641d961991</sys_update_name>
+        <sys_updated_by>mcasper</sys_updated_by>
+        <sys_updated_on>2017-10-10 21:02:44</sys_updated_on>
+        <token_url/>
+        <type>client</type>
+        <user/>
+    </oauth_entity>
+</record_update>

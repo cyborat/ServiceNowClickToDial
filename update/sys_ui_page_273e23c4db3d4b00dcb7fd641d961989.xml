@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[var tokenData = "";
+var tokenRequestBody = "grant_type=password&client_id=e129682477758b00011c57e355f29e68&client_secret=2x}:DtU2`V&username=VFRestUser&password=A142v46mUz";
+
+var vfctiwin = document.getElementById("voicefoundrycti");
+vfctiwin.setAttribute('width', 550);
+vfctiwin.setAttribute('height', 250);
+vfctiwin.setAttribute('type', 'text/html');
+vfctiwin.setAttribute('frameborder', 0);
+vfctiwin.setAttribute('allowTransparency', 'true');
+vfctiwin.style.border = '0';
+
+window.parent.document.getElementById("gsft_openframe").style.width="550px";
+document.body.style.padding="0px";
+
+var tokenClient = new XMLHttpRequest();
+tokenClient.open("post", "https://ven02157.service-now.com/oauth_token.do");
+
+tokenClient.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+tokenClient.onreadystatechange = function () {
+	if (this.readyState == this.DONE) {
+		tokenData = this.response;
+		vfctiwin.setAttribute("src", "https://servicenowdev.voicefoundry.com/?tokenData=" + tokenData);
+	}
+};
+tokenClient.send(tokenRequestBody);]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_vof_voicefoundry_SessionTokenMgr.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<style>
+		html, body{
+			margin:0px;
+			padding: 0px;
+			overflow: hidden;
+		}
+	</style>
+	<iframe id="voicefoundrycti"></iframe>
+</j:jelly>]]></html>
+        <name>SessionTokenMgr</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>mcasper</sys_created_by>
+        <sys_created_on>2017-10-09 19:26:09</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>273e23c4db3d4b00dcb7fd641d961989</sys_id>
+        <sys_mod_count>23</sys_mod_count>
+        <sys_name>SessionTokenMgr</sys_name>
+        <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
+        <sys_update_name>sys_ui_page_273e23c4db3d4b00dcb7fd641d961989</sys_update_name>
+        <sys_updated_by>mcasper</sys_updated_by>
+        <sys_updated_on>2017-10-10 22:50:56</sys_updated_on>
+    </sys_ui_page>
+</record_update>
