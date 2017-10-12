@@ -2,9 +2,9 @@
 <record_update sys_domain="global" table="sys_ui_module">
     <sys_ui_module action="INSERT_OR_UPDATE">
         <active>true</active>
-        <application display_value="VoiceFoundryCTI">11303788db3d4b00dcb7fd641d96198a</application>
+        <application display_value="VoiceFoundry CTI API Key">39ce9a38db7d8b00f7f7f9961d96199a</application>
         <filter/>
-        <name>VoiceFoundryCTIs</name>
+        <name>VoiceFoundry CTI API Key</name>
         <order/>
         <path/>
         <path_relative_to_root>false</path_relative_to_root>
@@ -16,15 +16,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>51303788db3d4b00dcb7fd641d96198c</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>VoiceFoundryCTIs</sys_name>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>VoiceFoundry CTI API Key</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_module_51303788db3d4b00dcb7fd641d96198c</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-10-09 19:33:13</sys_updated_on>
+        <sys_updated_on>2017-10-11 21:32:53</sys_updated_on>
         <table>x_vof_voicefoundry_voicefoundrycti</table>
         <uncancelable>false</uncancelable>
         <view_name/>

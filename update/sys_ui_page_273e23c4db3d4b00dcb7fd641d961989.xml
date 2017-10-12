@@ -2,7 +2,8 @@
 <record_update table="sys_ui_page">
     <sys_ui_page action="INSERT_OR_UPDATE">
         <category>general</category>
-        <client_script><![CDATA[var tokenData = "";
+        <client_script><![CDATA[var apiKey = "";
+var tokenData = "";
 var tokenRequestBody = "grant_type=password&client_id=e129682477758b00011c57e355f29e68&client_secret=2x}:DtU2`V&username=VFRestUser&password=A142v46mUz";
 
 var vfctiwin = document.getElementById("voicefoundrycti");
@@ -24,15 +25,71 @@ tokenClient.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'
 tokenClient.onreadystatechange = function () {
 	if (this.readyState == this.DONE) {
 		tokenData = this.response;
-		vfctiwin.setAttribute("src", "https://servicenowdev.voicefoundry.com/?tokenData=" + tokenData);
+		loadAPIKey();
 	}
 };
-tokenClient.send(tokenRequestBody);]]></client_script>
+tokenClient.send(tokenRequestBody);
+
+function loadAPIKey(){
+	var requestBody = ""; 
+	var client=new XMLHttpRequest();
+	client.open("get","https://ven02157.service-now.com/api/now/table/x_vof_voicefoundry_voicefoundrycti?sysparm_limit=1");
+
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+	client.setRequestHeader('X-UserToken',window.userToken);
+
+	client.onreadystatechange = function() { 
+		if(this.readyState == this.DONE) {
+			apiData = JSON.parse(this.response).result[0];
+			apiKey = apiData.apikey;
+
+			vfctiwin.setAttribute("src", "https://servicenow.voicefoundry.com/CTI/?tokenData=" + tokenData + "&apikey=" + apiKey + "&useremail=" + currentUserEmail);
+		}
+	}; 
+	client.send(requestBody);
+}
+
+var config = {
+	height: 250,
+	width: 550
+}
+function handleCommunicationEvent(context) {
+	console.log("Communication from Topframe", context);
+	switch (context.commtype) {
+		case "clicktodial":
+			var iframe = document.getElementById("voicefoundrycti").contentWindow;
+			iframe.postMessage({'functionToCall':'clicktodial', 'user':context.user, 'phonenumber':context.user[context.phoneType], 'latestticket':context.latestticket}, 'https://servicenowdev.voicefoundry.com/CTI/');
+			break;
+		default:
+			return;
+	}
+}
+function initSuccess(snConfig) {
+	console.log("openframe configuration", snConfig);
+	//register for communication event from TopFrame
+	openFrameAPI.subscribe(openFrameAPI.EVENTS.COMMUNICATION_EVENT, handleCommunicationEvent);
+}
+function initFailure(error) {
+	console.log("OpenFrame init failed..", error);
+}
+openFrameAPI.init(config, initSuccess, initFailure);
+
+function showPop(){
+	openFrameAPI.show();
+}
+
+window.addEventListener('message', function (event) {
+    if (event.data === 'popcti') {
+        showPop();
+    }
+});]]></client_script>
         <description/>
         <direct>false</direct>
-        <endpoint>x_vof_voicefoundry_SessionTokenMgr.do</endpoint>
+        <endpoint>x_vof_voicefoundry_VoiceFoundryCTI.do</endpoint>
         <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<script type="text/javascript" src="https://ven02157.service-now.com/scripts/openframe/1.0.0/openFrameAPI.min.js"></script>
 	<style>
 		html, body{
 			margin:0px;
@@ -40,23 +97,34 @@ tokenClient.send(tokenRequestBody);]]></client_script>
 			overflow: hidden;
 		}
 	</style>
+	
+	<g:evaluate object="true">
+		var session = gs.getSession();
+		var token = session.getSessionToken();
+		var curuser = gs.getUser();
+		var useremail = curuser.getEmail();
+	</g:evaluate>
+	<script>
+		var currentUserEmail = "$[useremail]";
+		var userToken = "$[token]";
+	</script>
 	<iframe id="voicefoundrycti"></iframe>
 </j:jelly>]]></html>
-        <name>SessionTokenMgr</name>
+        <name>VoiceFoundryCTI</name>
         <processing_script/>
         <sys_class_name>sys_ui_page</sys_class_name>
         <sys_created_by>mcasper</sys_created_by>
         <sys_created_on>2017-10-09 19:26:09</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>273e23c4db3d4b00dcb7fd641d961989</sys_id>
-        <sys_mod_count>23</sys_mod_count>
-        <sys_name>SessionTokenMgr</sys_name>
+        <sys_mod_count>48</sys_mod_count>
+        <sys_name>VoiceFoundryCTI</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_page_273e23c4db3d4b00dcb7fd641d961989</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-10-10 22:50:56</sys_updated_on>
+        <sys_updated_on>2017-10-12 18:33:27</sys_updated_on>
     </sys_ui_page>
 </record_update>
