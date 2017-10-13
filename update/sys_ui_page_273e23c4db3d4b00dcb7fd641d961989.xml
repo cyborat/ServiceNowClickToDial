@@ -42,9 +42,13 @@ function loadAPIKey(){
 	client.onreadystatechange = function() { 
 		if(this.readyState == this.DONE) {
 			apiData = JSON.parse(this.response).result[0];
-			apiKey = apiData.apikey;
+			if(apiData === undefined){
+				document.getElementById("apimessage").style.display="block";
+			}else{
+				apiKey = apiData.apikey;
 
-			vfctiwin.setAttribute("src", "https://servicenow.voicefoundry.com/CTI/?tokenData=" + tokenData + "&apikey=" + apiKey + "&useremail=" + currentUserEmail);
+				vfctiwin.setAttribute("src", "https://servicenow.voicefoundry.com/CTI/?tokenData=" + tokenData + "&apikey=" + apiKey + "&useremail=" + currentUserEmail);
+			}
 		}
 	}; 
 	client.send(requestBody);
@@ -59,7 +63,7 @@ function handleCommunicationEvent(context) {
 	switch (context.commtype) {
 		case "clicktodial":
 			var iframe = document.getElementById("voicefoundrycti").contentWindow;
-			iframe.postMessage({'functionToCall':'clicktodial', 'user':context.user, 'phonenumber':context.user[context.phoneType], 'latestticket':context.latestticket}, 'https://servicenowdev.voicefoundry.com/CTI/');
+			iframe.postMessage({'functionToCall':'clicktodial', 'user':context.user, 'phonenumber':context.user[context.phoneType], 'latestticket':context.latestticket}, 'https://servicenow.voicefoundry.com/CTI/');
 			break;
 		default:
 			return;
@@ -79,10 +83,17 @@ function showPop(){
 	openFrameAPI.show();
 }
 
+function openIncident(incidentID){
+	openFrameAPI.openServiceNowForm({entity:'incident', query:'sys_id='+incidentID});
+}
+
 window.addEventListener('message', function (event) {
-    if (event.data === 'popcti') {
+    if (event.data.eventType === 'popcti') {
         showPop();
     }
+	if(event.data.eventType === 'loadincident'){
+		openIncident(event.data.incidentID);
+	}
 });]]></client_script>
         <description/>
         <direct>false</direct>
@@ -108,6 +119,7 @@ window.addEventListener('message', function (event) {
 		var currentUserEmail = "$[useremail]";
 		var userToken = "$[token]";
 	</script>
+	<div id="apimessage" style="display:none; padding: 30px; color: #c7232b; font-family: Roboto,Helvetica Neue,sans-serif; font-size:16px;">VoiceFoundry API key has not yet been provided for this application.</div>
 	<iframe id="voicefoundrycti"></iframe>
 </j:jelly>]]></html>
         <name>VoiceFoundryCTI</name>
@@ -117,7 +129,7 @@ window.addEventListener('message', function (event) {
         <sys_created_on>2017-10-09 19:26:09</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>273e23c4db3d4b00dcb7fd641d961989</sys_id>
-        <sys_mod_count>48</sys_mod_count>
+        <sys_mod_count>55</sys_mod_count>
         <sys_name>VoiceFoundryCTI</sys_name>
         <sys_package display_value="VoiceFoundry CTI" source="x_vof_voicefoundry">e8534e92db190300f7f7f9961d9619cb</sys_package>
         <sys_policy/>
@@ -125,6 +137,6 @@ window.addEventListener('message', function (event) {
         <sys_scope display_value="VoiceFoundry CTI">e8534e92db190300f7f7f9961d9619cb</sys_scope>
         <sys_update_name>sys_ui_page_273e23c4db3d4b00dcb7fd641d961989</sys_update_name>
         <sys_updated_by>mcasper</sys_updated_by>
-        <sys_updated_on>2017-10-12 18:33:27</sys_updated_on>
+        <sys_updated_on>2017-10-13 01:39:54</sys_updated_on>
     </sys_ui_page>
 </record_update>
